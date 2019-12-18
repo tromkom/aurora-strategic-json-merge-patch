@@ -22,13 +22,12 @@ const getPatchForTwoValues = (a, b, path) => {
   const bIsArr = Array.isArray(b);
   if (aIsArr || bIsArr) {
     if (aIsArr !== bIsArr) {
-      return [
-        {
-          path,
-          op: "replace",
-          value: b
-        }
-      ];
+      const body = { path, op: "replace", value: b };
+      if (b.__self === null) {
+        body.op = "delete";
+        delete body.value;
+      }
+      return [body];
     }
     return httpPatch(a, b, "key", path, true).body;
   }
