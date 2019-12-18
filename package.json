@@ -1,0 +1,32 @@
+{
+  "name": "aurora-strategic-json-merge-patch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "nyc mocha --timeout 120000 --exit"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tromkom/aurora-strategic-json-merge-patch.git"
+  },
+  "keywords": [],
+  "author": "Tromsø Kommune",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tromkom/aurora-strategic-json-merge-patch/issues"
+  },
+  "homepage": "https://github.com/tromkom/aurora-strategic-json-merge-patch#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "husky": "^3.1.0",
+    "lodash": "^4.17.15",
+    "mocha": "^6.2.2",
+    "nyc": "^14.1.1"
+  }
+}
