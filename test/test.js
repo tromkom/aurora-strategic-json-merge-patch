@@ -1,14 +1,6 @@
 const chai = require("chai");
 const should = chai.should();
 
-{
-  const util = require("util");
-  const old = console.log;
-  console.log = arg => {
-    old(util.inspect(arg, false, null, true));
-  };
-}
-
 const _ = require("lodash");
 
 const { diff: diffLib, patch: patchLib, httpPatch, utils } = require("../src");
@@ -63,7 +55,7 @@ describe("diffing & patching on simple object", () => {
       body: [
         {
           path: "/1/info/emails/1",
-          op: "delete"
+          op: "remove"
         }
       ]
     },
@@ -72,7 +64,7 @@ describe("diffing & patching on simple object", () => {
       body: [
         {
           path: "/2",
-          op: "delete"
+          op: "remove"
         }
       ]
     }
@@ -146,7 +138,7 @@ describe("diffing & patching on arrays", () => {
       body: [
         {
           path: "/1234/contactInfo/emails/2",
-          op: "delete"
+          op: "remove"
         },
         {
           path: "/1234/contactInfo/emails/3",
@@ -307,15 +299,15 @@ describe("diffing & patching on complex arrays", () => {
       body: [
         {
           path: "/1/val",
-          op: "delete"
+          op: "remove"
         },
         {
           path: "/1/nestedObjects/willNest",
-          op: "delete"
+          op: "remove"
         },
         {
           path: "/1/notSoNested",
-          op: "delete"
+          op: "remove"
         },
         {
           path: "/1/info/emails/2",
@@ -332,7 +324,7 @@ describe("diffing & patching on complex arrays", () => {
       body: [
         {
           path: "/2",
-          op: "delete"
+          op: "remove"
         }
       ]
     },
@@ -354,7 +346,7 @@ describe("diffing & patching on complex arrays", () => {
         },
         {
           path: "/3/info/emails/45622",
-          op: "delete"
+          op: "remove"
         }
       ]
     },

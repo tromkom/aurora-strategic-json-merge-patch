@@ -10,7 +10,7 @@ const getPatchForTwoValues = (a, b, path) => {
 
     if (b === undefined) return [];
     if ((b || {}).__self === null) {
-      body.op = "delete";
+      body.op = "remove";
       delete body.value;
     }
     if (a === undefined) body.op = "add";
@@ -24,7 +24,7 @@ const getPatchForTwoValues = (a, b, path) => {
     if (aIsArr !== bIsArr) {
       const body = { path, op: "replace", value: b };
       if (b.__self === null) {
-        body.op = "delete";
+        body.op = "remove";
         delete body.value;
       }
       return [body];
@@ -36,7 +36,7 @@ const getPatchForTwoValues = (a, b, path) => {
     return [
       {
         path,
-        op: "delete"
+        op: "remove"
       }
     ];
   }
@@ -81,7 +81,7 @@ const httpPatch = (
         value: bObj
       };
       if ((bObj || {}).__self === null) {
-        body.op = "delete";
+        body.op = "remove";
         delete body.value;
       }
       if (aObj === undefined) body.op = "add";
@@ -94,7 +94,7 @@ const httpPatch = (
       if (addKeyInPath) newPath += `/${bObj.key}`;
       ret.body.push({
         path: newPath,
-        op: "delete"
+        op: "remove"
       });
       continue;
     }
@@ -118,7 +118,7 @@ const httpPatch = (
   }
 
   // update delete
-  ret.delete = !!ret.body.filter(x => x.path === pathId && x.op === "delete")
+  ret.delete = !!ret.body.filter(x => x.path === pathId && x.op === "remove")
     .length;
   return ret;
 };
