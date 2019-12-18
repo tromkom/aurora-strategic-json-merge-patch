@@ -333,7 +333,7 @@ describe("diffing & patching on complex arrays", () => {
       body: [
         {
           path: "/3/val",
-          op: "update",
+          op: "replace",
           value: 420
         },
         {

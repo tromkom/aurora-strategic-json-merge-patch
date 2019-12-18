@@ -3,7 +3,7 @@ const utils = require("./utils");
 const getPatchForTwoValues = (a, b, path) => {
   if (typeof a !== typeof b || typeof a !== "object") {
     let body = {
-      op: "update",
+      op: "replace",
       path,
       value: b
     };
@@ -77,7 +77,7 @@ const httpPatch = (
     if (typeof aObj !== typeof bObj || typeof aObj !== "object") {
       let body = {
         path: pathId,
-        op: "update",
+        op: "replace",
         value: bObj
       };
       if ((bObj || {}).__self === null) {
