@@ -11,9 +11,7 @@ module.exports.createItr = (obj, key) => {
     }, {});
   }
   if (obj[key] === undefined) {
-    return {};
-    // console.error(obj);
-    // throw new Error(`Did not find the key ${key}`);
+    return obj;
   }
   return {
     [obj[key]]: obj
@@ -23,3 +21,5 @@ module.exports.createItr = (obj, key) => {
 module.exports.uniqueEntriesForObjects = (a, b) => {
   return [...new Set([...Object.keys(a), ...Object.keys(b)])];
 };
+
+module.exports.clone = obj => JSON.parse(JSON.stringify(obj));
