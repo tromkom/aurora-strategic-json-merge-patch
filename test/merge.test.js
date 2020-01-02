@@ -1,14 +1,6 @@
 const chai = require("chai");
 const should = chai.should();
 
-{
-  const util = require("util");
-  const old = console.log;
-  console.log = arg => {
-    old(util.inspect(arg, false, null, true));
-  };
-}
-
 const _ = require("lodash");
 
 const {
@@ -152,7 +144,6 @@ describe("should strategic merge complex structures", () => {
 
   it("should merge two objects", () => {
     const merged = merge(firstObj, secondObj, "pid");
-    console.log(merged);
     should.equal(true, _.isEqual(merged, finalObj));
   });
 
