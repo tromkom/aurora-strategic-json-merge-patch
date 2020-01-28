@@ -1,5 +1,5 @@
 {
-  "name": "aurora-strategic-json-merge-patch",
+  "name": "@tromkom/aurora-strategic-json-merge-patch",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
