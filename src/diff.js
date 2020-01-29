@@ -25,7 +25,8 @@ const diffTwoValues = (a, b, parentKey, diffs = {}) => {
       diffs[parentKey] = b;
       return diffs;
     }
-    const patches = diff(a, b, "key");
+
+    const patches = diff(a, b, parentKey);
 
     for (const patch of patches) {
       if (!diffs[parentKey]) {
