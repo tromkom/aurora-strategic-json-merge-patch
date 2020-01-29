@@ -10,7 +10,7 @@ const {
 
 describe("should strategic merge simple structures", () => {
   const firstObj = {
-    pid: 123,
+    key: 123,
     arr: [
       {
         key: 1,
@@ -19,7 +19,7 @@ describe("should strategic merge simple structures", () => {
     ]
   };
   const secondObj = {
-    pid: 123,
+    key: 123,
     arr: [
       {
         key: 2,
@@ -29,7 +29,7 @@ describe("should strategic merge simple structures", () => {
   };
   const finalObj = {
     123: {
-      pid: 123,
+      key: 123,
       arr: [
         {
           key: 1,
@@ -47,19 +47,19 @@ describe("should strategic merge simple structures", () => {
   const finalArray = [finalObj[123]];
 
   it("should merge two objects", () => {
-    const merged = merge(firstObj, secondObj, "pid");
+    const merged = merge(firstObj, secondObj, "key");
     should.equal(true, _.isEqual(merged, finalObj));
   });
 
   it("should merge an array", () => {
-    const merged = array.reduce((a, c) => merge(a, c, "pid"), []);
+    const merged = array.reduce((a, c) => merge(a, c, "key"), []);
     should.equal(true, _.isEqual(merged, finalArray));
   });
 });
 
 describe("should strategic merge complex structures", () => {
   const firstObj = {
-    pid: 123,
+    key: 123,
     arr: [
       {
         key: 1,
@@ -81,7 +81,7 @@ describe("should strategic merge complex structures", () => {
     dope: 432
   };
   const secondObj = {
-    pid: 123,
+    key: 123,
     arr: [
       {
         key: 1,
@@ -108,7 +108,7 @@ describe("should strategic merge complex structures", () => {
   };
   const finalObj = {
     123: {
-      pid: 123,
+      key: 123,
       dope: 567,
       arr: [
         {
@@ -143,12 +143,12 @@ describe("should strategic merge complex structures", () => {
   const finalArray = [finalObj[123]];
 
   it("should merge two objects", () => {
-    const merged = merge(firstObj, secondObj, "pid");
+    const merged = merge(firstObj, secondObj, "key");
     should.equal(true, _.isEqual(merged, finalObj));
   });
 
   it("should merge an array", () => {
-    const merged = array.reduce((a, c) => merge(a, c, "pid"), []);
+    const merged = array.reduce((a, c) => merge(a, c, "key"), []);
     should.equal(true, _.isEqual(merged, finalArray));
   });
 });

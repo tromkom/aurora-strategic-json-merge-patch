@@ -8,7 +8,7 @@ const { diff: diffLib, patch: patchLib, httpPatch, utils } = require("../src");
 describe("diffing & patching on simple object", () => {
   const base = [
     {
-      pid: "1",
+      key: "1",
       info: {
         emails: [
           {
@@ -19,7 +19,7 @@ describe("diffing & patching on simple object", () => {
       }
     },
     {
-      pid: "2",
+      key: "2",
       info: {
         emails: [
           {
@@ -33,7 +33,7 @@ describe("diffing & patching on simple object", () => {
 
   const expectedPatches = [
     {
-      pid: "1",
+      key: "1",
       info: {
         emails: [
           {
@@ -44,7 +44,7 @@ describe("diffing & patching on simple object", () => {
       }
     },
     {
-      pid: "2",
+      key: "2",
       __self: null
     }
   ];
@@ -72,7 +72,7 @@ describe("diffing & patching on simple object", () => {
 
   const expectedNewBase = [
     {
-      pid: "1",
+      key: "1",
       info: {
         emails: []
       }
@@ -80,26 +80,26 @@ describe("diffing & patching on simple object", () => {
   ];
 
   it("should diff and confirm result", () => {
-    const patches = diffLib(base, expectedNewBase, "pid");
+    const patches = diffLib(base, expectedNewBase, "key");
     should.equal(true, _.isEqual(patches, expectedPatches));
   });
 
   it("should httpPatch and confirm result", () => {
     const patches = base.map(x =>
-      httpPatch(x, expectedPatches, "pid", `/${x.pid}`)
+      httpPatch(x, expectedPatches, "key", `/${x.key}`)
     );
     should.equal(true, _.isEqual(patches, expectedHttpPatches));
   });
 
   it("should patch and confirm result", () => {
-    const newObject = patchLib(base, expectedPatches, "pid");
+    const newObject = patchLib(base, expectedPatches, "key");
     should.equal(true, _.isEqual(newObject, expectedNewBase));
   });
 });
 
 describe("diffing & patching on arrays", () => {
   const base = {
-    pid: "1234",
+    key: "1234",
     contactInfo: {
       emails: [
         {
@@ -116,7 +116,7 @@ describe("diffing & patching on arrays", () => {
 
   const expectedPatches = [
     {
-      pid: "1234",
+      key: "1234",
       contactInfo: {
         emails: [
           {
@@ -153,7 +153,7 @@ describe("diffing & patching on arrays", () => {
   ];
 
   const expectedNewBase = {
-    pid: "1234",
+    key: "1234",
     contactInfo: {
       emails: [
         {
@@ -169,17 +169,17 @@ describe("diffing & patching on arrays", () => {
   };
 
   it("should diff and confirm result", () => {
-    const patches = diffLib(base, expectedNewBase, "pid");
+    const patches = diffLib(base, expectedNewBase, "key");
     should.equal(true, _.isEqual(patches, expectedPatches));
   });
 
   it("should httpPatch and confirm result", () => {
-    const patches = httpPatch(base, expectedPatches, "pid", `/${base.pid}`);
+    const patches = httpPatch(base, expectedPatches, "key", `/${base.key}`);
     should.equal(true, _.isEqual([patches], expectedHttpPatches));
   });
 
   it("should patch and confirm result", () => {
-    const newObject = patchLib(base, expectedPatches, "pid");
+    const newObject = patchLib(base, expectedPatches, "key");
     should.equal(true, _.isEqual(newObject, expectedNewBase));
   });
 });
@@ -187,7 +187,7 @@ describe("diffing & patching on arrays", () => {
 describe("diffing & patching on complex arrays", () => {
   const base = [
     {
-      pid: "1",
+      key: "1",
       val: 111,
       nestedObjects: {
         dontTouchMe: "ok",
@@ -211,7 +211,7 @@ describe("diffing & patching on complex arrays", () => {
       }
     },
     {
-      pid: "2",
+      key: "2",
       val: 222,
       info: {
         emails: [
@@ -223,7 +223,7 @@ describe("diffing & patching on complex arrays", () => {
       }
     },
     {
-      pid: "3",
+      key: "3",
       val: 333,
       info: {
         emails: [
@@ -246,7 +246,7 @@ describe("diffing & patching on complex arrays", () => {
 
   const expectedPatches = [
     {
-      pid: "1",
+      key: "1",
       val: {
         __self: null
       },
@@ -268,11 +268,11 @@ describe("diffing & patching on complex arrays", () => {
       }
     },
     {
-      pid: "2",
+      key: "2",
       __self: null
     },
     {
-      pid: "3",
+      key: "3",
       val: 420,
       info: {
         emails: [
@@ -288,7 +288,7 @@ describe("diffing & patching on complex arrays", () => {
       }
     },
     {
-      pid: "4",
+      key: "4",
       val: 402
     }
   ];
@@ -357,7 +357,7 @@ describe("diffing & patching on complex arrays", () => {
           path: "/4",
           op: "add",
           value: {
-            pid: "4",
+            key: "4",
             val: 402
           }
         }
@@ -367,7 +367,7 @@ describe("diffing & patching on complex arrays", () => {
 
   const expectedNewBase = [
     {
-      pid: "1",
+      key: "1",
       nestedObjects: {
         dontTouchMe: "ok"
       },
@@ -385,7 +385,7 @@ describe("diffing & patching on complex arrays", () => {
       }
     },
     {
-      pid: "3",
+      key: "3",
       val: 420,
       info: {
         emails: [
@@ -405,26 +405,26 @@ describe("diffing & patching on complex arrays", () => {
       }
     },
     {
-      pid: "4",
+      key: "4",
       val: 402
     }
   ];
 
   it("should diff and confirm result", () => {
-    const patches = diffLib(base, expectedNewBase, "pid");
+    const patches = diffLib(base, expectedNewBase, "key");
     should.equal(true, _.isEqual(patches, expectedPatches));
   });
 
   it("should httpPatch and confirm result", () => {
-    const aItr = utils.createItr(base, "pid");
+    const aItr = utils.createItr(base, "key");
     const patches = expectedPatches.map(x =>
-      httpPatch(aItr[x.pid], [x], "pid", `/${x.pid}`)
+      httpPatch(aItr[x.key], [x], "key", `/${x.key}`)
     );
     should.equal(true, _.isEqual(patches, expectedHttpPatches));
   });
 
   it("should patch and confirm result", () => {
-    const newObject = patchLib(base, expectedPatches, "pid");
+    const newObject = patchLib(base, expectedPatches, "key");
     should.equal(true, _.isEqual(newObject, expectedNewBase));
   });
 });

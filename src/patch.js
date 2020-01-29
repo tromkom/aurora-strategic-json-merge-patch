@@ -1,6 +1,6 @@
 const utils = require("./utils");
 
-const strategicMerge = (base, edits) => {
+const strategicMerge = (base, edits, uniqueKey) => {
   if (typeof base !== typeof edits || typeof base !== "object") {
     return edits;
   }
@@ -12,14 +12,14 @@ const strategicMerge = (base, edits) => {
     if (bIsArr !== eIsArr) {
       return edits;
     }
-    return patch(base, edits, "key");
+    return patch(base, edits, uniqueKey);
   }
 
   for (const [key, value] of Object.entries(edits)) {
     if ((value || {}).__self === null) {
       delete base[key];
     } else {
-      base[key] = strategicMerge(base[key], value);
+      base[key] = strategicMerge(base[key], value, uniqueKey);
     }
   }
 
@@ -45,13 +45,13 @@ const patch = (base, patches = [], key = "key") => {
 
     // obj = actual object
     // patch = patch object
-    for (const [key, edits] of Object.entries(patch)) {
-      const oldVal = obj[key];
-      const newVal = strategicMerge(oldVal, edits);
+    for (const [k, edits] of Object.entries(patch)) {
+      const oldVal = obj[k];
+      const newVal = strategicMerge(oldVal, edits, key);
       if ((newVal || {}).__self === null) {
-        delete obj[key];
+        delete obj[k];
       } else {
-        obj[key] = newVal;
+        obj[k] = newVal;
       }
     }
   }

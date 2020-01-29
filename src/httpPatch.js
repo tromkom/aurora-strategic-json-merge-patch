@@ -1,6 +1,6 @@
 const utils = require("./utils");
 
-const getPatchForTwoValues = (a, b, path) => {
+const getPatchForTwoValues = (a, b, path, uniqueKey) => {
   if (typeof a !== typeof b || typeof a !== "object") {
     let body = {
       op: "replace",
@@ -29,7 +29,7 @@ const getPatchForTwoValues = (a, b, path) => {
       }
       return [body];
     }
-    return httpPatch(a, b, "key", path, true).body;
+    return httpPatch(a, b, uniqueKey, path, true).body;
   }
 
   if (b.__self === null) {
@@ -49,7 +49,7 @@ const getPatchForTwoValues = (a, b, path) => {
 
     let newPath = path;
     newPath += `/${k}`;
-    ret.push(...getPatchForTwoValues(aVal, bVal, newPath));
+    ret.push(...getPatchForTwoValues(aVal, bVal, newPath, uniqueKey));
   }
 
   return ret;
@@ -113,7 +113,7 @@ const httpPatch = (
       } else {
         newPath += `/${k}`;
       }
-      ret.body.push(...getPatchForTwoValues(aVal, bVal, newPath));
+      ret.body.push(...getPatchForTwoValues(aVal, bVal, newPath, key));
     }
   }
 
