@@ -80,11 +80,11 @@ const httpPatch = (
         op: "replace",
         value: bObj
       };
+      if (aObj === undefined) body.op = "add";
       if ((bObj || {}).__self === null) {
         body.op = "remove";
         delete body.value;
       }
-      if (aObj === undefined) body.op = "add";
       if (addKeyInPath) body.path += `/${bObj.key}`;
       ret.body.push(body);
       continue;
