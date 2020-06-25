@@ -6,7 +6,7 @@ key will default to identifying array entries with "key" unless other is specifi
 const utils = require("./utils");
 
 const diffTwoValues = (a, b, parentKey, uniqueKey, diffs = {}) => {
-  if (typeof a !== typeof b || typeof a !== "object") {
+  if (typeof a !== typeof b || typeof a !== "object" || a === null) {
     if (a !== b) {
       if (b === undefined) {
         diffs[parentKey] = { __self: null };
@@ -66,7 +66,7 @@ const diff = (a, b, key = "key") => {
     if (bObj === undefined) {
       patches.push({
         [key]: uniqueId,
-        __self: null
+        __self: null,
       });
       continue;
     }
@@ -74,7 +74,7 @@ const diff = (a, b, key = "key") => {
     if (aObj === undefined) {
       patches.push({
         [key]: uniqueId,
-        ...bObj
+        ...bObj,
       });
       continue;
     }
@@ -85,7 +85,7 @@ const diff = (a, b, key = "key") => {
       const bVal = bObj[k];
 
       const patch = diffTwoValues(aVal, bVal, k, key, {
-        [key]: uniqueId
+        [key]: uniqueId,
       });
       if (Object.keys(patch).length > 1) {
         patches.push(patch);

@@ -24,7 +24,7 @@ module.exports.createItr = (obj, key) => {
     return obj;
   }
   return {
-    [obj[key]]: obj
+    [obj[key]]: obj,
   };
 };
 
@@ -42,4 +42,4 @@ module.exports.uniqueEntriesForObjects = (a, b) => {
   return Object.keys(r);
 };
 
-module.exports.clone = obj => JSON.parse(JSON.stringify(obj));
+module.exports.clone = (obj) => JSON.parse(JSON.stringify(obj));
