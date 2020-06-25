@@ -4,7 +4,7 @@ Aurora Strategic JSON Merge allows diffing and merging of objects, including arr
 
 ## Installation
 
-`npm install https://github.com/tromkom/aurora-strategic-json-merge-patch`
+`npm install @tromkom/aurora-strategic-json-merge-patch`
 
 ## Usage
 
@@ -24,14 +24,14 @@ let base = [
     arr: [
       {
         id: "1",
-        val: 1
-      }
-    ]
+        val: 1,
+      },
+    ],
   },
   {
     id: "2",
-    val: 456
-  }
+    val: 456,
+  },
 ];
 
 let newBase = [
@@ -41,14 +41,14 @@ let newBase = [
     arr: [
       {
         id: "1",
-        val: 1
+        val: 1,
       },
       {
         id: "2",
-        val: 222
-      }
-    ]
-  }
+        val: 222,
+      },
+    ],
+  },
 ];
 
 let patches = diff(base, newBase, "id");
@@ -75,19 +75,19 @@ let base = [
     arr: [
       {
         id: "1",
-        val: 1
-      }
-    ]
+        val: 1,
+      },
+    ],
   },
   {
     id: "2",
-    val: 456
-  }
+    val: 456,
+  },
 ];
 
 let patches = [
   { id: "1", val: 456, arr: [{ id: "2", val: 222 }] },
-  { id: "2", __self: null }
+  { id: "2", __self: null },
 ];
 
 let newBase = patch(base, patches, "id");
@@ -119,23 +119,23 @@ let base = [
     arr: [
       {
         id: "1",
-        val: 1
-      }
-    ]
+        val: 1,
+      },
+    ],
   },
   {
     id: "2",
-    val: 456
-  }
+    val: 456,
+  },
 ];
 
 let patches = [
   { id: "1", val: 456, arr: [{ id: "2", val: 222 }] },
-  { id: "2", __self: null }
+  { id: "2", __self: null },
 ];
 
 let httpPatches = base
-  .map(x => httpPatch(x, patches, "id", `/${x.id}`).body)
+  .map((x) => httpPatch(x, patches, "id", `/${x.id}`).body)
   .flat();
 console.log(httpPatches);
 /*
@@ -161,14 +161,14 @@ let base = [
     arr: [
       {
         id: "1",
-        val: 1
-      }
-    ]
+        val: 1,
+      },
+    ],
   },
   {
     id: "2",
-    val: 456
-  }
+    val: 456,
+  },
 ];
 
 let newBase = [
@@ -178,10 +178,10 @@ let newBase = [
     arr: [
       {
         id: "2",
-        val: 222
-      }
-    ]
-  }
+        val: 222,
+      },
+    ],
+  },
 ];
 
 let res = merge(base, newBase, "id");
