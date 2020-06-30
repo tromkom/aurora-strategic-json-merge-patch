@@ -66,7 +66,7 @@ console.log(patches);
 Using the patch from diffing on an equal base object, will return the new base.
 
 ```js
-const { patch } = require("aurora-strategic-json-merge-patch");
+const { patch } = require("@tromkom/aurora-strategic-json-merge-patch");
 
 let base = [
   {
@@ -110,7 +110,7 @@ If you want to use [JSON patch](https://www.npmjs.com/package/fast-json-patch) y
 **_Be careful when using JSON patch as the patch will use the "key" as opposed to the index of the array_**
 
 ```js
-const { httpPatch } = require("aurora-strategic-json-merge-patch");
+const { httpPatch } = require("@tromkom/aurora-strategic-json-merge-patch");
 
 let base = [
   {
@@ -152,7 +152,7 @@ console.log(httpPatches);
 Does a strategic JSON Merge that will properly handle arrays (assuming they have a "key").
 
 ```js
-const { merge } = require("aurora-strategic-json-merge-patch");
+const { merge } = require("@tromkom/aurora-strategic-json-merge-patch");
 
 let base = [
   {
